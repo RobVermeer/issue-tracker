@@ -5,7 +5,11 @@ import { getProjectsForUser } from "@/lib/project"
 import { ServerCog } from "lucide-react"
 import Link from "next/link"
 
-export default async function Home() {
+interface Props {
+  params: { projectId: string }
+}
+
+export default async function Project({ params }: Props) {
   const projects = await getProjectsForUser()
 
   return (
@@ -26,7 +30,7 @@ export default async function Home() {
             <ProjectSelect projects={projects} />
           </div>
 
-          <Issues />
+          <Issues projectId={params.projectId} />
         </>
       )}
     </main>

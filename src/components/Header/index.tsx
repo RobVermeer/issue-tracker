@@ -9,7 +9,7 @@ interface Props {
 export async function Header({ session }: Props) {
   return (
     <header
-      className="p-4 flex h-64 bg-cover bg-center fixed top-0 left-0 right-0 items-start justify-between"
+      className="p-4 flex h-64 bg-cover bg-center items-start justify-between"
       style={{ backgroundImage: "url('/background.jpg')" }}
     >
       <Logo />
