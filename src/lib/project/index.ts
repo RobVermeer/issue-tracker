@@ -5,6 +5,7 @@ import { authOptions } from "@/lib/nextAuth"
 import { prisma } from "@/lib/prisma"
 import { cache } from "react"
 import { revalidatePath } from "next/cache"
+import { getErrorMessage } from "../utils"
 
 export const getProjectsForUser = cache(async () => {
   const session = await getServerSession(authOptions)
@@ -52,7 +53,7 @@ export const createProjectForUser = async (formData: FormData) => {
   } catch (error) {
     return {
       type: "error" as const,
-      errors: [error],
+      errors: [getErrorMessage(error)],
     }
   }
 }
