@@ -1,8 +1,12 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Ubuntu } from "next/font/google"
 import "./globals.css"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/nextAuth"
+import { Header } from "@/components/Header"
+import { Login } from "@/components/Login"
 
-const inter = Inter({ subsets: ["latin"] })
+const ubuntu = Ubuntu({ weight: ["400"], subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Issue tracker",
@@ -10,14 +14,19 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
 }
 
-export default function RootLayout({
-  children,
-}: {
+interface Props {
   children: React.ReactNode
-}) {
+}
+
+export default async function RootLayout({ children }: Props) {
+  const session = await getServerSession(authOptions)
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={ubuntu.className}>
+        <Header session={session} />
+        {session ? children : <Login />}
+      </body>
     </html>
   )
 }
