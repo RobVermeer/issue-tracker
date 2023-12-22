@@ -30,5 +30,3 @@ export async function POST(request: Request, params: Params) {
     return Response.error()
   }
 }
-
-export const dynamic = "force-dynamic"
