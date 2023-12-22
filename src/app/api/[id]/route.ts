@@ -19,7 +19,7 @@ export async function POST(request: Request, params: Params) {
       data: {
         message,
         level,
-        extra,
+        extra: extra ? JSON.stringify(extra) : extra,
         projectId: project.id,
       },
     })
