@@ -1,7 +1,7 @@
 {
   "id": "/",
   "name": "Issue tracker",
-  "short_name": "Issue tracker",
+  "short_name": "Track",
   "start_url": ".",
   "display": "standalone",
   "display_override": ["standalone", "fullscreen", "minimal-ui"],
