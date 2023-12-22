@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/Logo"
 import { useState } from "react"
 import { Separator } from "@/components/ui/separator"
+import { getInitials } from "@/lib/string"
 
 interface Props {
   session: Session
@@ -23,11 +24,7 @@ interface Props {
 
 export function Menu({ session }: Props) {
   const [open, setOpen] = useState(false)
-  const initials = session.user.name
-    .split(" ")
-    .map((part: string) => part.at(0))
-    .slice(0, 2)
-    .join("")
+  const initials = getInitials(session.user.name)
 
   const close = () => setOpen(false)
   const logout = () => {
