@@ -23,6 +23,7 @@ import { Button } from "../ui/button"
 import { Separator } from "../ui/separator"
 import { ScrollArea } from "../ui/scroll-area"
 import clsx from "clsx"
+import { DeleteIssue } from "../DeleteIssue"
 
 interface Props {
   projectId?: string
@@ -146,6 +147,8 @@ export async function Issues({ projectId }: Props) {
                     </div>
                   ))}
               </dl>
+
+              <DeleteIssue id={id} />
             </ScrollArea>
           </SheetContent>
         </Sheet>
