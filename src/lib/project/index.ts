@@ -98,3 +98,31 @@ export const editProjectForUser = async (id: string, formData: FormData) => {
     }
   }
 }
+
+export const deleteProjectById = async (id: string) => {
+  try {
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+      throw new Error("No access")
+    }
+
+    await prisma.project.delete({
+      where: {
+        id,
+        userId: session.user.id,
+      },
+    })
+
+    revalidatePath("/")
+
+    return {
+      type: "success" as const,
+    }
+  } catch (error) {
+    return {
+      type: "error" as const,
+      errors: [getErrorMessage(error)],
+    }
+  }
+}

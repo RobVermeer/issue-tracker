@@ -13,8 +13,12 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useState } from "react"
 import { useToast } from "@/components/ui/use-toast"
-import { ClipboardCopy, Eye, EyeOff, Plus, Settings } from "lucide-react"
-import { editProjectForUser, getProjectsForUser } from "@/lib/project"
+import { ClipboardCopy, Eye, EyeOff, Plus, Settings, Trash } from "lucide-react"
+import {
+  deleteProjectById,
+  editProjectForUser,
+  getProjectsForUser,
+} from "@/lib/project"
 
 interface Props {
   project: Awaited<ReturnType<typeof getProjectsForUser>>[0]
@@ -37,6 +41,11 @@ export const EditProject = ({ project }: Props) => {
       })
     }
 
+    setOpen(false)
+  }
+
+  async function handleRemove() {
+    await deleteProjectById(project.id)
     setOpen(false)
   }
 
@@ -98,7 +107,12 @@ export const EditProject = ({ project }: Props) => {
             readOnly
           />
         </form>
-        <DialogFooter>
+        <DialogFooter className="gap-2 md:gap-0">
+          <form action={handleRemove}>
+            <Button className="w-full" type="submit" variant="outline">
+              <Trash size="16" className="mr-2" /> Remove project
+            </Button>
+          </form>
           <Button type="submit" form="edit">
             <Plus size="16" className="mr-2" /> Save project
           </Button>
