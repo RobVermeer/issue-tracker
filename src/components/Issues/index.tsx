@@ -129,7 +129,7 @@ export async function Issues({ projectId }: Props) {
                       <dt className="text-sm font-medium leading-6 text-foreground">
                         {key}
                       </dt>
-                      <dd className="mt-1 text-sm leading-6 text-muted-foreground sm:col-span-2 sm:mt-0">
+                      <dd className="flex items-center mt-1 text-sm leading-6 text-muted-foreground sm:col-span-2 sm:mt-0">
                         {typeof value === "boolean" && (
                           <span
                             className={clsx(
