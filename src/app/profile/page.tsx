@@ -1,3 +1,4 @@
+import { EditProject } from "@/components/EditProject"
 import { EmptyState } from "@/components/EmptyState"
 import { Issues } from "@/components/Issues"
 import { NewProject } from "@/components/NewProject"
@@ -20,12 +21,14 @@ export default async function Home() {
           <h2 className="text-lg">Projects</h2>
 
           <div className="grid gap-2">
-            {projects.map(({ id, name }) => (
+            {projects.map((project) => (
               <div
-                key={id}
+                key={project.id}
                 className="flex items-center pr-24 font-semibold relative rounded-md p-3 bg-secondary hover:ring-2 ring-inset ring-primary transition-all"
               >
-                {name}
+                {project.name}
+
+                <EditProject project={project} />
               </div>
             ))}
           </div>

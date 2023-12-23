@@ -5,6 +5,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/nextAuth"
 import { Header } from "@/components/Header"
 import { Login } from "@/components/Login"
+import { Toaster } from "@/components/ui/toaster"
 
 const ubuntu = Ubuntu({ weight: ["400"], subsets: ["latin"] })
 
@@ -26,6 +27,7 @@ export default async function RootLayout({ children }: Props) {
       <body className={ubuntu.className}>
         <Header session={session} />
         {session ? children : <Login />}
+        <Toaster />
       </body>
     </html>
   )

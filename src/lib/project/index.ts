@@ -61,3 +61,48 @@ export const createProjectForUser = async (formData: FormData) => {
     }
   }
 }
+
+export const editProjectForUser = async (id: string, formData: FormData) => {
+  try {
+    const session = await getServerSession(authOptions)
+
+    if (!session) {
+      throw new Error("No access")
+    }
+
+    const name = formData.get("name")?.toString()
+
+    if (!name) {
+      throw new Error("Name is required")
+    }
+
+    const project = await prisma.project.findUniqueOrThrow({
+      where: {
+        id,
+      },
+    })
+
+    const secret = crypto.randomBytes(32).toString("base64url")
+
+    await prisma.project.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        secret: project.secret || secret,
+      },
+    })
+
+    revalidatePath("/")
+
+    return {
+      type: "success" as const,
+    }
+  } catch (error) {
+    return {
+      type: "error" as const,
+      errors: [getErrorMessage(error)],
+    }
+  }
+}
