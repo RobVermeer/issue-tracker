@@ -64,7 +64,7 @@ export const EditProject = ({ project }: Props) => {
             </button>
             <button
               onClick={() => {
-                navigator.clipboard.writeText(project.secret || "")
+                navigator.clipboard.writeText(project.secret)
                 toast({ title: "Secret copied" })
               }}
               type="button"
@@ -75,7 +75,7 @@ export const EditProject = ({ project }: Props) => {
           <Input
             type={showSecret ? "text" : "password"}
             id="secret"
-            value={project.secret || ""}
+            value={project.secret}
             readOnly
           />
           <Label htmlFor="url" className="flex gap-2 items-center">

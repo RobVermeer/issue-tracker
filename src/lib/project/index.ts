@@ -76,21 +76,13 @@ export const editProjectForUser = async (id: string, formData: FormData) => {
       throw new Error("Name is required")
     }
 
-    const project = await prisma.project.findUniqueOrThrow({
-      where: {
-        id,
-      },
-    })
-
-    const secret = crypto.randomBytes(32).toString("base64url")
-
     await prisma.project.update({
       where: {
         id,
+        userId: session.user.id,
       },
       data: {
         name,
-        secret: project.secret || secret,
       },
     })
 
