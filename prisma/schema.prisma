@@ -59,6 +59,7 @@ model VerificationToken {
 model Project {
   id     String  @id @default(cuid())
   name   String
+  secret String? @unique
   userId String
   user   User    @relation(fields: [userId], references: [id])
   Issue  Issue[]
