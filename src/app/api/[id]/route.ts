@@ -7,15 +7,16 @@ interface Params {
 export async function POST(request: Request, { params }: { params: Params }) {
   try {
     const { id } = params
-    const { message, level, extra } = await request.json()
+    const { secret = "nope", message, level, extra } = await request.json()
 
     if (!id) {
       throw new Error("No ID")
     }
 
-    const project = await prisma.project.findFirstOrThrow({
+    const project = await prisma.project.findUniqueOrThrow({
       where: {
         id,
+        secret,
       },
     })
 
