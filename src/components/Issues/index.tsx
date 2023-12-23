@@ -22,6 +22,7 @@ import {
 import { Button } from "../ui/button"
 import { Separator } from "../ui/separator"
 import { ScrollArea } from "../ui/scroll-area"
+import clsx from "clsx"
 
 interface Props {
   projectId?: string
@@ -129,7 +130,18 @@ export async function Issues({ projectId }: Props) {
                         {key}
                       </dt>
                       <dd className="mt-1 text-sm leading-6 text-muted-foreground sm:col-span-2 sm:mt-0">
-                        {value as string}
+                        {typeof value === "boolean" && (
+                          <span
+                            className={clsx(
+                              "inline-block h-3 w-3 rounded-full ring",
+                              value
+                                ? "bg-green-500 ring-green-200"
+                                : "bg-red-500 ring-red-200"
+                            )}
+                          />
+                        )}
+
+                        {typeof value !== "boolean" && String(value)}
                       </dd>
                     </div>
                   ))}
