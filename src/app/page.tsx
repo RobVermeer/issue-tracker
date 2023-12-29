@@ -1,11 +1,18 @@
 import { EmptyState } from "@/components/EmptyState"
 import { Issues } from "@/components/Issues"
 import { ProjectSelect } from "@/components/ProjectSelect"
+import { authOptions } from "@/lib/nextAuth"
 import { getProjectsForUser } from "@/lib/project"
 import { ServerCog } from "lucide-react"
+import { getServerSession } from "next-auth"
 import Link from "next/link"
+import { redirect } from "next/navigation"
 
 export default async function Home() {
+  const session = await getServerSession(authOptions)
+
+  if (!session) redirect("/login")
+
   const projects = await getProjectsForUser()
 
   return (
